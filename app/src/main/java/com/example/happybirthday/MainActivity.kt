@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    TaskCompletedScreen()
+                    ComposeQuadrantApp()
                 }
             }
         }
@@ -44,25 +44,61 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TaskCompletedScreen()
-{
+fun ComposeQuadrantApp() {
+    Column(Modifier.fillMaxWidth()) {
+        Row(Modifier.weight(1f)) {
+            ComposableInfoCard(
+                title = stringResource(R.string.first_title),
+                description = stringResource(R.string.first_description),
+                backgroundColor = Color.Green,
+                modifier = Modifier.weight(1f)
+            )
+            ComposableInfoCard(
+                title = stringResource(R.string.second_title),
+                description = stringResource(R.string.second_description),
+                backgroundColor = Color.Yellow,
+                modifier = Modifier.weight(1f)
+            )
+        }
+        Row(Modifier.weight(1f)) {
+            ComposableInfoCard(
+                title = stringResource(R.string.third_title),
+                description = stringResource(R.string.third_description),
+                backgroundColor = Color.Cyan,
+                modifier = Modifier.weight(1f)
+            )
+            ComposableInfoCard(
+                title = stringResource(R.string.fourth_title),
+                description = stringResource(R.string.fourth_description),
+                backgroundColor = Color.LightGray,
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
+}
+@Composable
+private fun ComposableInfoCard(
+    title: String,
+    description: String,
+    backgroundColor: Color,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(),
+        modifier = modifier
+            .fillMaxSize()
+            .background(backgroundColor)
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        val image = painterResource(R.drawable.ic_task_completed)
-        Image(painter = image, contentDescription = null)
         Text(
-            text = stringResource(R.string.all_task_completed),
+            text = title,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 24.dp, bottom = 8.dp)
+            modifier = Modifier.padding(bottom = 16.dp)
         )
         Text(
-            text = stringResource(R.string.nice_work),
-            fontSize = 16.sp
+            text = description,
+            textAlign = TextAlign.Justify
         )
     }
 }
@@ -72,6 +108,6 @@ fun TaskCompletedScreen()
 @Composable
 fun DefaultPreview() {
     HappyBirthdayTheme {
-        TaskCompletedScreen()
+        ComposeQuadrantApp()
     }
 }
