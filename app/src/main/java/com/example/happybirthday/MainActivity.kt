@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,57 +36,42 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    ComposeArticleApp()
+                    TaskCompletedScreen()
                 }
             }
         }
     }
 }
+
 @Composable
-fun ComposeArticleApp()
+fun TaskCompletedScreen()
 {
-    ArticleApp(
-        title= stringResource(id = R.string.title),
-        shortDescription= stringResource(id = R.string.short_description),
-        longDescription= stringResource(id= R.string.long_description),
-        imagePainter = painterResource(id = R.drawable.background)
-    )
-}
-@Composable
-fun ArticleApp(  title: String,
-                 shortDescription: String,
-                 longDescription: String,
-                 imagePainter: Painter
-)
-{
-    Column()
-    {
-        Image(painter=imagePainter, contentDescription = null,
-        modifier = Modifier.fillMaxWidth())
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        val image = painterResource(R.drawable.ic_task_completed)
+        Image(painter = image, contentDescription = null)
         Text(
-            text=title,
-            fontSize = 24.sp,
-            modifier = Modifier.padding(16.dp)
+            text = stringResource(R.string.all_task_completed),
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 24.dp, bottom = 8.dp)
         )
         Text(
-            text=shortDescription,
-            modifier = Modifier.padding(
-                start=16.dp,
-                end=16.dp
-            ),
-            textAlign = TextAlign.Justify
-        )
-        Text(
-            text=longDescription,
-            modifier = Modifier.padding(16.dp),
-            textAlign = TextAlign.Justify
+            text = stringResource(R.string.nice_work),
+            fontSize = 16.sp
         )
     }
 }
+
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HappyBirthdayTheme {
-        ComposeArticleApp()
+        TaskCompletedScreen()
     }
 }
