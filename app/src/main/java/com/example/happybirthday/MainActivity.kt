@@ -15,9 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,64 +35,57 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    BirthdayGreetingWithImage(stringResource(id = R.string.happy_birthday_text), stringResource(
-                        id = R.string.signature_text
-                    ))
+                    ComposeArticleApp()
                 }
             }
         }
     }
 }
 @Composable
-fun BirthdayGreetingWithImage(message:String,from: String)
+fun ComposeArticleApp()
 {
-    Box{
-        val image= painterResource(id = R.drawable.cake)
-        Image(
-            painter= image,
-            contentDescription = null,
-            modifier= Modifier
-                .fillMaxHeight()
-                .fillMaxWidth(),
-            contentScale = ContentScale.Crop
-        )
-        BirthdayGreetingWithText(message,from)
-
-    }
+    ArticleApp(
+        title= stringResource(id = R.string.title),
+        shortDescription= stringResource(id = R.string.short_description),
+        longDescription= stringResource(id= R.string.long_description),
+        imagePainter = painterResource(id = R.drawable.background)
+    )
 }
 @Composable
-fun BirthdayGreetingWithText(message :String, from :String)
+fun ArticleApp(  title: String,
+                 shortDescription: String,
+                 longDescription: String,
+                 imagePainter: Painter
+)
 {
-    Column{
+    Column()
+    {
+        Image(painter=imagePainter, contentDescription = null,
+        modifier = Modifier.fillMaxWidth())
         Text(
-            text=message,
-            fontSize=36.sp,
-            modifier = Modifier
-                .background(color = Color.Green)
-                .fillMaxWidth()
-                .wrapContentWidth(align = Alignment.CenterHorizontally)
-                .padding(
-                    start = 16.dp,
-                    end = 16.dp,
-                    top = 16.dp,
-                    bottom = 16.dp
-                )
+            text=title,
+            fontSize = 24.sp,
+            modifier = Modifier.padding(16.dp)
         )
         Text(
-            text=from,
-            fontSize=24.sp,
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentWidth(Alignment.CenterHorizontally)
+            text=shortDescription,
+            modifier = Modifier.padding(
+                start=16.dp,
+                end=16.dp
+            ),
+            textAlign = TextAlign.Justify
+        )
+        Text(
+            text=longDescription,
+            modifier = Modifier.padding(16.dp),
+            textAlign = TextAlign.Justify
         )
     }
-
 }
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HappyBirthdayTheme {
-        BirthdayGreetingWithImage("Happy birthday minh ", "-from Emma")
+        ComposeArticleApp()
     }
 }
